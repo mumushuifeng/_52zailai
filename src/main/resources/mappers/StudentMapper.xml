@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xun.mapper.IStudentMapper">
+    <resultMap id="FirstResultMap" type="Student">
+        <result property="isDelete" column="is_delete"></result>
+    </resultMap>
+
+    <insert id="addStudent" keyProperty="stu.id" useGeneratedKeys="true">
+        insert into student(username,password) values(#{stu.username},#{stu.password});
+    </insert>
+
+    <select id="findById" resultType="Student">
+        select s.id,s.username,s.password from student s where s.id = #{id1} and s.is_delete = 1;
+    </select>
+
+    <select id="findAll" resultMap="FirstResultMap">
+        select s.id,s.username,s.password,s.is_delete from student s where s.is_delete = 1;
+    </select>
+</mapper>

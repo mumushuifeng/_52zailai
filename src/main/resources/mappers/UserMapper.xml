@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xun.mapper.IUserMapper">
+    <resultMap id="userCartMap" type="User">
+        <result property="isDelete" column="is_delete" />
+        <collection property="carts"
+                    ofType="Cart"
+                    column="u_id"
+                    select="com.xun.mapper.ICartMapper.findCartByUid"
+        />
+    </resultMap>
+    <select id="findCardById" resultMap="userCartMap">
+        SELECT * from user where u_id=#{uId} and is_delete = 1;
+    </select>
+</mapper>
